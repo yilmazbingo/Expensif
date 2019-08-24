@@ -1,12 +1,12 @@
-import { createStore } from "redux";
-
-const store = createStore((stat = { count: 0, er: 0 }) => {
-  return stat;
+const promise = new Promise((resolve, reject) => {
+  reject("this si my resolved data");
 });
 
-console.log(store.getState());
-
-const name = { name: "yila", age: 23 };
-
-const news = { age: 27, ...name };
-console.log(news);
+promise.then(
+  data => {
+    console.log("tes");
+  },
+  error => {
+    console.log(error);
+  }
+);
