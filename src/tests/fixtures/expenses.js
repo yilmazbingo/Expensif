@@ -24,6 +24,6 @@ export default [
     amount: 1000,
     createdAt: moment(0)
       .add(4, "days")
-      .valueOf()
+      .valueOf() //returns timestamp
   }
 ];

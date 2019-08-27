@@ -18,9 +18,10 @@ test("should set sortBy to amount", () => {
 });
 
 test("should set sortBy to date", () => {
+  // it is by default date. so we create state with sortBy:amount and then change it.
   const state = {
     text: "",
-    sortBy: "amount", // it is by default date
+    sortBy: "amount",
     startDate: undefined,
     endDate: undefined
   };

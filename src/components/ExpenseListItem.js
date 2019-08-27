@@ -12,10 +12,6 @@ const ExpenseListItem = ({ id, description, amount, createdAt }) => (
   </div>
 );
 
-// const mapStateToProps = state => {
-//   return {
-//     expenses: state.expenses
-//   };
-// };
+
 
 export default ExpenseListItem;

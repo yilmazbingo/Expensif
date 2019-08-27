@@ -15,8 +15,10 @@ class ExpenseListFilters extends React.Component {
   };
   onDatesChange = ({ startDate, endDate }) => {
     this.props.dispatch(setStartDate(startDate));
-    this.props.dispatch(setEndDate(setEndDate));
+    this.props.dispatch(setEndDate(endDate));
   };
+
+  //when you clicked it will change
   onFocusChange = calendarFocused => {
     this.setState(() => ({ calendarFocused }));
   };
@@ -31,8 +33,7 @@ class ExpenseListFilters extends React.Component {
           }}
         />
         <select
-          name=""
-          id=""
+
           value={this.props.filters.sortBy}
           onChange={e => {
             if (e.target.value === "date") {
@@ -58,7 +59,7 @@ class ExpenseListFilters extends React.Component {
           isOutsideRange={() => false}
         />
       </div>
-    );
+    )
   }
 }
 

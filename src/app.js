@@ -13,9 +13,13 @@ import "react-dates/lib/css/_datepicker.css";
 
 const store = configureStore();
 
-store.dispatch(addExpense({ description: "Water bill", amount: 4550 }));
-store.dispatch(addExpense({ description: "Gas bill", createdAt: 1000 }));
-store.dispatch(addExpense({ description: "Rent", amount: 109500 }));
+store.dispatch(
+  addExpense({ description: "Water bill", amount: 4550, id: "eww223" })
+);
+store.dispatch(
+  addExpense({ description: "Gas bill", createdAt: 1000, id: "344re" })
+);
+store.dispatch(addExpense({ description: "Rent", amount: 109500, id: "45r" }));
 // store.dispatch(setTextFilter("water"));
 // setTimeout(() => {
 //   store.dispatch(setTextFilter("rent"));

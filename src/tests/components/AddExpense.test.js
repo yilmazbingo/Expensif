@@ -4,19 +4,20 @@ import { AddExpensePage } from "../../components/AddExpensePage";
 import AddExpense from "../../components/ExpenseForm";
 import expense from "../fixtures/expenses";
 
-let onSubmit, history, wrapper;
+let startAddExpense, history, wrapper;
 
+//before is a global lifecycle method. it runs once before each test case
 beforeEach(() => {
-  onSubmit = jest.fn();
+  startAddExpense = jest.fn();
   history = { push: jest.fn() };
-  wrapper = shallow(<AddExpensePage onSubmit={onSubmit} history={history} />);
+  wrapper = shallow(<AddExpensePage startAddExpense={startAddExpense} history={history} />);
 });
 
 test("should render AddExpense page correctly", () => {
-  expect(wrapper).toMatchSnaphot;
+  expect(wrapper).toMatchSnaphot();
 });
 
-test("should handle onSUbmit", () => {
-  wrapper.find(AddExpense).prop("onSubmit")(expense[1]);
+test("should handle onSubmit", () => {
+  wrapper.find(startAddExpense).prop("onSubmit")(expense[1]);
   expect(history.push).toHaveBeenCalledWith("/");
 });
