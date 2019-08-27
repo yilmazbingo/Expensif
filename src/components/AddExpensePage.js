@@ -19,6 +19,10 @@ export class AddExpensePage extends React.Component {
   }
 }
 
+//this is for testing
+//instead of importing an action generator, we pass it via the props
+//React recommend using the object form of mapDispatchToProps unless you specifically need to customize dispatching behavior in some way.
+
 const mapDispatchToProps = dispatch => ({
   startAddExpense: expense => dispatch(startAddExpense(expense))
 });

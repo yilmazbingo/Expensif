@@ -3,6 +3,7 @@ import { exportAllDeclaration } from "@babel/types";
 import expenses from "../fixtures/expenses"
 import configureMockStore from "redux-mock-store"
 import thunk from "redux-thunk"
+import database from "../../firebase/firebase"
 
 
 //we are creating configuration
@@ -66,7 +67,13 @@ test("should add expense to databse and store", (done) => {
         id: expect.any(String), ...expenseData
       }
     })
-    done()
+
+    //fetching the data to see if it is saved
+    database.ref(`expenses/${actions[0].expense.id}`).once('value').then((snapshot) => {
+      expect(snapshot.val()).toEqual(expenseData)
+      done()// this goes inside async func
+    })
+
   })
 
   //how we do something when it is done running. we have an async code but we dont have a way to really set up an async test case. the goal here is to wait for everything to complete. 
