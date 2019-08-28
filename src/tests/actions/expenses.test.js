@@ -57,9 +57,34 @@ test("should set up expense action object with default values", () => {
 test("should add expense to databse and store", (done) => {
   const store = createMockStore({}) //this is the mock store
 
-  const expenseData = { description: "ram", amount: 3000, notes: "expensive", createdAt: 30000 }
+  const expenseData = { description: "ram", amount: 3000, note: "expensive", createdAt: 30000 }
 
   store.dispatch(startAddExpense(expenseData)).then(() => {
+    const actions = store.getActions() //this will return array of actions
+    //if you check the firebase there is only one dispatch call
+    expect(actions[0]).toEqual({
+      type: "ADD_EXPENSE", expense: {
+        id: expect.any(String), ...expenseData
+      }
+    })
+
+    //fetching the data to see if it is saved
+    return database.ref(`expenses/${actions[0].expense.id}`).once('value')
+
+  }).then((snapshot) => {
+    expect(snapshot.val()).toEqual(expenseData)
+    done()// this goes inside async func
+  })
+
+  //how we do something when it is done running. we have an async code but we dont have a way to really set up an async test case. the goal here is to wait for everything to complete. 
+})
+
+test("should add expense with defaults to databse and store", (done) => {
+  const store = createMockStore({}) //this is the mock store
+
+  const expenseData = { description: "", amount: 0, note: "", createdAt: 0 }
+
+  store.dispatch(startAddExpense({})).then(() => {
     const actions = store.getActions() //this will return array of actions
     //if you check the firebase there is only dispatch call
     expect(actions[0]).toEqual({
@@ -69,16 +94,10 @@ test("should add expense to databse and store", (done) => {
     })
 
     //fetching the data to see if it is saved
-    database.ref(`expenses/${actions[0].expense.id}`).once('value').then((snapshot) => {
-      expect(snapshot.val()).toEqual(expenseData)
-      done()// this goes inside async func
-    })
+    return database.ref(`expenses/${actions[0].expense.id}`).once('value')
 
+  }).then((snapshot) => {
+    expect(snapshot.val()).toEqual(expenseData)
+    done()// this goes inside async func
   })
-
-  //how we do something when it is done running. we have an async code but we dont have a way to really set up an async test case. the goal here is to wait for everything to complete. 
-})
-
-test("should add expense with defaults to databse and store", () => {
-
 })
